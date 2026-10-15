@@ -1,0 +1,41 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="GPL-3.0-only"
+
+[[mods]]
+modId="utfstreams"
+version="0.1.0-alpha"
+displayName="UltraTerraForged Streams Currents (Experimental)"
+authors="Towns & Kingdoms"
+description='''Experimental height-aware native river currents for UltraTerraForged 1.0.2 and Streams Reflowing 2.15.0. Does not repair terrain, uphill water steps, or tributary carving.'''
+
+[[mixins]]
+config="utfstreams.mixins.json"
+
+[[dependencies.utfstreams]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.21.2)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.utfstreams]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.219,21.2)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.utfstreams]]
+modId="ultraterraforged"
+type="required"
+versionRange="[1.0.2+1.21.1]"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.utfstreams]]
+modId="streamsreflowing"
+type="required"
+versionRange="[2.15.0,2.15.1)"
+ordering="AFTER"
+side="BOTH"

@@ -1,0 +1,50 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+version = '0.1.0-alpha'
+group = 'nl.townsandkingdoms.utfstreams'
+base.archivesName = 'ultraterraforged-streams-currents'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.withSourcesJar()
+
+neoForge {
+    version = '21.1.219'
+    runs {
+        server {
+            server()
+            programArgument '--nogui'
+            jvmArgument '-Xmx3G'
+            gameDirectory = file('run')
+            systemProperty 'utfstreams.integrationTest', System.getProperty('utfstreams.integrationTest', 'false')
+        }
+    }
+    mods { utfstreams { sourceSet sourceSets.main } }
+}
+
+dependencies {
+    implementation files('libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar')
+    implementation files('libs/StreamsReflowing-1.21.1-neoforge-2.15.0.jar')
+    runtimeOnly fileTree(dir: 'runtime-libs', include: '*.jar')
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+tasks.named('jar') { from('LICENSE') }
+
+sourceSets {
+    pureTest {
+        java.srcDir 'src/testPure/java'
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+tasks.register('verifyFlowRules', JavaExec) {
+    dependsOn tasks.named('pureTestClasses')
+    classpath = sourceSets.pureTest.runtimeClasspath
+    mainClass = 'FlowRulesTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifyFlowRules') }
