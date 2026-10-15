@@ -6,3 +6,7 @@ runtime-libs/*.jar
 *.log
 .idea/
 *.iml
+validation/
+.vscode/
+.DS_Store
+Thumbs.db

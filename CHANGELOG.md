@@ -2,4 +2,7 @@
 
 ## 0.1.0-alpha
 
-Initial experimental build. See README.md for supported features and VALIDATION.md for completed checks and testing limits.
+- Added native UltraTerraForged river currents using local water heights and river paths.
+- Integrated with Streams Reflowing's flow grids while preserving existing layer priority.
+- Added an uphill-segment guard and configurable current speed and depth.
+- Added `/utfstreams status`.
