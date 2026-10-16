@@ -1,5 +1,7 @@
 # UltraTerraForged Streams Currents
 
+[Project status](https://github.com/Mikaaah/Mikaaah/blob/master/STATUS.md) · [Report a bug](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues/new?template=bug_report.yml) · [Suggest a feature](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues/new?template=feature_request.yml) · [Questions](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues/new?template=question.yml) · [Creator's CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)
+
 [![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-5B8731?style=flat-square)](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents)
 [![NeoForge](https://img.shields.io/badge/Loader-NeoForge-D97724?style=flat-square)](https://neoforged.net/)
 [![Experimental Alpha](https://img.shields.io/badge/Release-Experimental%20Alpha-F59E0B?style=flat-square)](CHANGELOG.md)
