@@ -62,6 +62,12 @@ Requires Java 21. Place the following dependency files in `libs/`:
 
 Run `./gradlew build` on Linux/macOS or `gradlew.bat build` on Windows. Output is written to `build/libs/`. Dependency JARs are not included in this repository.
 
+
+## Contributing
+
+Found a bug or want to improve the project? Read the [contribution guide](CONTRIBUTING.md) for reporting details, testing expectations and pull requests.
+
+
 ## Credits and license
 
 By Towns & Kingdoms, for UltraTerraForged and Streams Reflowing.
