@@ -18,7 +18,7 @@ Distinguish current-direction issues from upstream terrain issues such as uphill
 
 - Preserve existing Streams layers' priority and avoid silently changing terrain blocks.
 - Keep the inactive/vanilla profile and other dimensions unaffected.
-- Update [README.md](README.md), [CHANGELOG.md](CHANGELOG.md) or [VALIDATION.md](VALIDATION.md) as needed.
+- Update [README.md](README.md), [CHANGELOG.md](CHANGELOG.md) as needed, and include validation results in the pull request.
 - Follow the Java 21 [build instructions](README.md#building). Dependency JARs are not redistributed.
 - Explain tests with actual worlds, current grids, networking and clients where relevant; do not report simulator checks as full in-game validation.
 
