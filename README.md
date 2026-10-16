@@ -1,5 +1,10 @@
 # UltraTerraForged Streams Currents
 
+[![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-5B8731?style=flat-square)](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents)
+[![NeoForge](https://img.shields.io/badge/Loader-NeoForge-D97724?style=flat-square)](https://neoforged.net/)
+[![Experimental Alpha](https://img.shields.io/badge/Release-Experimental%20Alpha-F59E0B?style=flat-square)](CHANGELOG.md)
+[![GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-64748B?style=flat-square)](LICENSE)
+
 Adds Streams Reflowing currents to UltraTerraForged's native rivers, using their paths and local water heights.
 
 [Download 0.1.0-alpha](downloads/ultraterraforged-streams-currents-0.1.0-alpha-neoforge-1.21.1.jar?raw=true) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues)
