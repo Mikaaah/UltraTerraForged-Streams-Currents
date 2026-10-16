@@ -9,6 +9,6 @@ contact_links:
     url: "https://github.com/Mikaaah/Mikaaah/blob/master/STATUS.md"
     about: "Development status and links to the correct issue tracker."
   -
-    name: "Creator's CurseForge projects"
-    url: "https://www.curseforge.com/members/mikaaah/projects"
-    about: "Browse the creator's published Minecraft projects; this repository may not have a CurseForge download."
+    name: "CurseForge download"
+    url: "https://www.curseforge.com/minecraft/mc-mods/ultraterraforged-streams-reflowing-compat"
+    about: "Download UltraTerraForged Streams Reflowing Compat on CurseForge."
