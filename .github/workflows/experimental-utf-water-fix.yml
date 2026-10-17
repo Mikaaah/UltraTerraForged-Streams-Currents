@@ -1,0 +1,50 @@
+name: Experimental UTF 1.21.1 Water Fix
+on:
+  push:
+    branches:
+      - experiment/utf-1.21.1-water-fixes
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: experimental-utf-water-fix
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout upstream UltraTerraForged 1.21.1
+        run: git clone --single-branch --depth 1 --branch 1.21.1 https://github.com/Pandaismyname1/ultraterraforged.git upstream
+      - name: Apply experimental patch
+        run: python3 experiments/ultraterraforged-water-fix/apply_fix.py upstream
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Regression test
+        working-directory: upstream
+        run: |
+          chmod +x gradlew
+          ./gradlew :common:test --tests '*RiverWaterTransitionTest' -Putf.perfMods=false --no-daemon
+      - name: Build NeoForge 1.21.1
+        working-directory: upstream
+        run: ./gradlew :neoforge:build -Putf.perfMods=false --no-daemon
+      - name: Stage playable JAR
+        run: |
+          mkdir -p release
+          find upstream/neoforge/build/libs -name '*-neoforge.jar' -print
+          cp upstream/neoforge/build/libs/*-neoforge.jar release/ultraterraforged-1.0.2-mc1.21.1-waterfix-neoforge.jar
+          sha256sum release/*.jar
+      - name: Upload NeoForge artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultraterraforged-1.21.1-experimental-waterfix
+          path: release/*.jar
+          if-no-files-found: error
