@@ -3,6 +3,18 @@
   "minVersion": "0.8",
   "package": "nl.townsandkingdoms.utfstreams.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["RiverCaptureMixin", "StreamGridMixin", "NaturalRiverFeatureMixin"],
-  "injectors": {"defaultRequire": 1}
+  "mixins": [
+    "RiverCaptureMixin",
+    "StreamGridMixin",
+    "NaturalRiverFeatureMixin",
+    "ActualWaterMixin",
+    "ActualBakedFlowMixin",
+    "ActualGridMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "ActualParticleMixin"
+  ]
 }

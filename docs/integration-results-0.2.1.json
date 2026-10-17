@@ -1,0 +1,39 @@
+{
+  "highMainRiver": {
+    "z": -7360,
+    "surfaceY": 72,
+    "x": 1505,
+    "dz": -14.28857421875,
+    "dx": -8.7431640625,
+    "bedY": 71
+  },
+  "generatedWaterAtPredictedHeight": true,
+  "sampleLayerBuildMs": 21.521357,
+  "elevatedLayerProduced": true,
+  "uncorrectedBakedUphillVector": [
+    1.0,
+    0.0
+  ],
+  "bakedUphillCurrentReversedAgainstActualWater": true,
+  "actualWaterBoatDirection": true,
+  "actualWaterCorrectedVector": [
+    -0.9999241101148306,
+    -0.012319659535238284
+  ],
+  "nativeRiverDirectionHasPriority": true,
+  "originalGridPreserved": true,
+  "fullGridAndServerPhysicsPassed": true,
+  "verticalBandIsolationPassed": true,
+  "networkGridBytes": 3072,
+  "provisionalGridPassed": true,
+  "packetCodecAndClientLookupPassed": true,
+  "nativeUphillCounterexample": [
+    117,
+    96,
+    141
+  ],
+  "uphillReversalPassed": true,
+  "statusCommandPassed": true,
+  "netherAndEndInactive": true,
+  "passed": true
+}

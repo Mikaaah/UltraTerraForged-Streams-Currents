@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 
-version = '0.2.0-beta'
+version = '0.2.1-beta'
 group = 'nl.townsandkingdoms.utfstreams'
 base.archivesName = 'ultraterraforged-streams-currents'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -48,3 +48,9 @@ tasks.register('verifyFlowRules', JavaExec) {
     mainClass = 'FlowRulesTest'
 }
 tasks.named('check') { dependsOn tasks.named('verifyFlowRules') }
+tasks.register('verifyActualWater', JavaExec) {
+    dependsOn tasks.named('pureTestClasses')
+    classpath = sourceSets.pureTest.runtimeClasspath
+    mainClass = 'DownhillSearchTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifyActualWater') }

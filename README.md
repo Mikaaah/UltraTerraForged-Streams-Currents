@@ -11,7 +11,7 @@ Adds Streams Reflowing currents to UltraTerraForged's native rivers, using their
 
 📚 **[Browse the documentation wiki](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Home)** · [Installation](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Getting-Started) · [Troubleshooting](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Troubleshooting)
 
-[Download 0.2.0-beta](downloads/ultraterraforged-streams-currents-0.2.0-beta-neoforge-1.21.1.jar?raw=true) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues)
+[Download 0.2.1-beta](downloads/ultraterraforged-streams-currents-0.2.1-beta-neoforge-1.21.1.jar?raw=true) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues)
 
 ## Requirements
 
@@ -77,3 +77,13 @@ Found a bug or want to improve the project? Read the [contribution guide](CONTRI
 By Towns & Kingdoms, for UltraTerraForged and Streams Reflowing.
 
 [GPL-3.0-only](LICENSE).
+
+## Actual-water correction (0.2.1)
+
+`correctActualWaterFlow=true` also validates final ordinary/baked fluid and boat currents against loaded water.
+`actualWaterScanRadius=16` bounds the connected-water search (4–32 blocks); each query visits at most 384 nodes.
+No chunks are forced to load and no water or terrain blocks are rewritten. Nearby lower outlets determine the corrected direction.
+Flat areas or outlets beyond the search bounds keep their original direction. Explicit Flow Control edits retain priority.
+
+Stand in an affected stream and run `/utfstreams inspect` for the block position, fluid, cached grid angle and final flow vector.
+`/utfstreams status` includes actual-water search/correction counters.

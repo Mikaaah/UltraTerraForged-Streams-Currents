@@ -23,9 +23,9 @@ import org.slf4j.Logger;
 public final class UtfStreams {
     public static final Logger LOG = LogUtils.getLogger();
     public static final ModConfigSpec SPEC;
-    public static final ModConfigSpec.BooleanValue ENABLED, SKIP_UPHILL;
+    public static final ModConfigSpec.BooleanValue ENABLED, SKIP_UPHILL, ACTUAL_WATER;
     public static final ModConfigSpec.DoubleValue SPEED;
-    public static final ModConfigSpec.IntValue MAX_DEPTH;
+    public static final ModConfigSpec.IntValue MAX_DEPTH, SCAN_RADIUS;
     static {
         var b = new ModConfigSpec.Builder();
         ENABLED = b.define("enabled", true);
@@ -33,12 +33,18 @@ public final class UtfStreams {
                 .define("skipUphillSegments", true);
         SPEED = b.defineInRange("nativeRiverSpeed", 1.0, 0.1, 2.0);
         MAX_DEPTH = b.defineInRange("maxCurrentDepth", 64, 1, 256);
+        ACTUAL_WATER = b.comment("Validate final baked-fluid and boat currents against connected water in loaded chunks.").define("correctActualWaterFlow", true);
+        SCAN_RADIUS = b.defineInRange("actualWaterScanRadius", 16, 4, 32);
         SPEC = b.build();
     }
     public UtfStreams(IEventBus bus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, SPEC);
         bus.addListener(this::setup);
         NeoForge.EVENT_BUS.addListener(UtfStreams::commands);
+        bus.addListener(ActualWaterState::register);
+        NeoForge.EVENT_BUS.addListener(ActualWaterState::login);
+        NeoForge.EVENT_BUS.addListener(ActualWaterState::dimension);
+        NeoForge.EVENT_BUS.addListener(ActualWaterState::respawn);
         IntegrationChecks.register();
     }
     private void setup(FMLCommonSetupEvent event) {
@@ -68,8 +74,27 @@ public final class UtfStreams {
                     c.getSource().sendSuccess(() -> Component.literal("UTF Streams: active=" + active
                             + "; native columns=" + NativeFlowLayers.COLUMNS.sum()
                             + "; basin columns calmed=" + NativeFlowLayers.UPHILL.sum()
-                            + "; layer builds=" + NativeFlowLayers.BUILDS.sum()), false);
+                            + "; layer builds=" + NativeFlowLayers.BUILDS.sum()
+                            + "; actual water searches=" + ActualWaterFlow.SEARCHES.sum()
+                            + "; actual corrections=" + ActualWaterFlow.CORRECTIONS.sum()), false);
                     return active ? 1 : 0;
+                }))
+                .then(Commands.literal("inspect").executes(c -> {
+                    var level=c.getSource().getLevel();
+                    var pos=net.minecraft.core.BlockPos.containing(c.getSource().getPosition());
+                    for(int i=0;i<3 && !level.getFluidState(pos).is(net.minecraft.tags.FluidTags.WATER);i++) pos=pos.below();
+                    var state=level.getFluidState(pos);
+                    if(!state.is(net.minecraft.tags.FluidTags.WATER)) {
+                        c.getSource().sendFailure(Component.literal("Stand in or directly above the affected water.")); return 0;
+                    }
+                    var flow=state.getFlow(level,pos);
+                    byte[] grid=StreamFlowGrid.peek(pos.getX()>>4,pos.getZ()>>4);
+                    byte raw=StreamFlowGrid.angleOf(grid,pos.getX(),pos.getZ(),pos.getY());
+                    final String info="UTF Streams at "+pos.toShortString()+"; fluid="
+                        +net.minecraft.core.registries.BuiltInRegistries.FLUID.getKey(state.getType())
+                        +"; grid angle="+raw+"; actual flow="+flow+"; runtime fix="+ACTUAL_WATER.get();
+                    c.getSource().sendSuccess(()->Component.literal(info),false); return 1;
                 })));
+
     }
 }

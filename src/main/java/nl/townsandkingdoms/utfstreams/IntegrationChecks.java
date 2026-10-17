@@ -75,6 +75,7 @@ public final class IntegrationChecks {
                 var nativeLayer = layers.getFirst();
                 require(nativeLayer.lo()[i] <= s.surfaceY() && nativeLayer.hi()[i] == s.surfaceY(), "Wrong native Y band");
                 report.put("elevatedLayerProduced", true);
+                actualWaterRegression(level, s.x(), s.z(), report);
 
                 // Verify the public extra-layer API keeps an existing Streams layer first.
                 byte[] own = new byte[StreamFlowGrid.LAYER];
@@ -157,6 +158,40 @@ public final class IntegrationChecks {
         } catch (Exception e) { UtfStreams.LOG.error("Cannot write integration results", e); }
         UtfStreams.LOG.info("UTF Streams integration complete: {}", report);
         server.halt(false);
+    }
+
+    private static void actualWaterRegression(ServerLevel level, int wx, int wz, Map<String,Object> report) {
+        int x=(wx & ~15)+8, z=(wz & ~15)+8, low=230;
+        int east=0;
+        for(int i=0;i<8;i++) if(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.DIRS[i].x>0.9) east=i;
+        for(int ax=-6;ax<=6;ax++)for(int az=-2;az<=2;az++) {
+            int top=ax<0?low:low+3;
+            for(int y=low-1;y<=low+5;y++) {
+                BlockPos p=new BlockPos(x+ax,y,z+az);
+                boolean wall=Math.abs(az)==2 || Math.abs(ax)==6 || y==low-1;
+                var block=wall?net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()
+                    :y<=top?dev.streamsreflowing.neoforge.fluid.StreamFluids.STREAM_BLOCK.get().defaultBlockState()
+                        .setValue(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.FLOW,east)
+                    :net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+                level.setBlock(p,block,2);
+            }
+        }
+        BlockPos test=new BlockPos(x+3,low+3,z);
+        ActualWaterFlow.clear();
+        boolean enabled=UtfStreams.ACTUAL_WATER.get();
+        net.minecraft.world.phys.Vec3 uncorrected;
+        UtfStreams.ACTUAL_WATER.set(false);
+        try { uncorrected=level.getFluidState(test).getFlow(level,test); }
+        finally { UtfStreams.ACTUAL_WATER.set(enabled); }
+        require(uncorrected.x>0.5,"Test fixture did not reproduce an uphill baked stream before correction: "+uncorrected);
+        report.put("uncorrectedBakedUphillVector",java.util.List.of(uncorrected.x,uncorrected.z));
+        var flow=level.getFluidState(test).getFlow(level,test);
+        require(flow.x < -0.5, "Baked stream still flowed uphill despite a real westward drop: " + flow);
+        byte a=StreamFlowGrid.angleForEntityPush(level,test.getX(),test.getY(),test.getZ());
+        require(a!=-1 && StreamFlowGrid.vx(a)<-0.5, "Boat current did not follow actual downhill water");
+        report.put("bakedUphillCurrentReversedAgainstActualWater",true);
+        report.put("actualWaterBoatDirection",true);
+        report.put("actualWaterCorrectedVector",java.util.List.of(flow.x,flow.z));
     }
 
     private static NativeCapture.Sample findElevatedMain(GeneratorContext context) throws Exception {

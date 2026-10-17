@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.1-beta — actual water and baked stream correction
+
+- Validate final water flow against connected, loaded water rather than only predicted river routes.
+- Correct Streams baked-fluid, boat-current and surface-particle paths as well as ordinary water.
+- Follow bends toward nearby lower outlets; never search uphill through a crest or diagonally through banks.
+- Bound searches to 384 nodes and a configurable radius (16 blocks by default), with a short bounded cache and no chunk loading. Flat or unresolved areas preserve their original direction.
+- Respect explicit Flow Control overrides, including intentionally reversed currents and Stillwater Anchors.
+- Add `/utfstreams inspect` diagnostics and actual-water regression coverage.
+
+
 ## 0.2.0-beta — Streams Reflowing 2.15.2
 
 - Compile and test against Streams Reflowing 2.15.2 and UltraTerraForged 1.0.2 for Minecraft 1.21.1.
