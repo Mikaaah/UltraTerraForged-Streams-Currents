@@ -1,0 +1,26 @@
+plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.148' }
+version = '0.1.0'
+group = 'nl.townsandkingdoms.utfoptimizer'
+base.archivesName = 'ultraterraforged-optimizer'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.withSourcesJar()
+neoForge {
+    version = '21.1.252'
+    runs { server { server(); programArgument '--nogui' } }
+    mods { utfoptimizer { sourceSet sourceSets.main } }
+}
+dependencies { implementation files('libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar') }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
+sourceSets {
+    pureTest {
+        java.srcDir 'src/testPure/java'
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+tasks.register('verifyTerrainEquivalence', JavaExec) {
+    dependsOn tasks.named('pureTestClasses')
+    classpath = sourceSets.pureTest.runtimeClasspath
+    mainClass = 'RiverWarpEquivalenceTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifyTerrainEquivalence') }

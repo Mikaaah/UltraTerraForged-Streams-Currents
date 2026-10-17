@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="utfoptimizer"
+version="0.1.0"
+displayName="UltraTerraForged Optimizer"
+authors="Mikaaah"
+description='''Safe, configurable world-generation optimizations for UltraTerraForged 1.0.2. No changes to terrain, biomes or water.''
+[[mixins]]
+config="utfoptimizer.mixins.json"
+[[dependencies.utfoptimizer]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.21.2)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.utfoptimizer]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.252,21.2)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.utfoptimizer]]
+modId="ultraterraforged"
+type="required"
+versionRange="[1.0.2,1.0.3)"
+ordering="AFTER"
+side="BOTH"

@@ -1,0 +1,42 @@
+name: UTF Optimizer Experimental
+on:
+  push:
+    branches: [feature/utf-optimizer-0.1.0]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: utf-optimizer-experimental
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Download pinned upstream compile dependency
+        run: |
+          mkdir -p optimizer/libs
+          curl --fail --location --retry 3 -o 'optimizer/libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar' 'https://github.com/Pandaismyname1/ultraterraforged/releases/download/1.0.2%2B1.21.1/ultraterraforged-1.0.2%2B1.21.1-neoforge.jar'
+          test $(stat -c%s 'optimizer/libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar') -gt 1000000
+      - name: Compile, build, verify equivalence
+        run: |
+          chmod +x gradlew
+          ./gradlew -p optimizer build check --no-daemon --stacktrace
+      - name: Stage playable addon
+        run: |
+          mkdir -p output
+          cp optimizer/build/libs/ultraterraforged-optimizer-0.1.0.jar output/
+          jar tf output/ultraterraforged-optimizer-0.1.0.jar | grep 'utfoptimizer.mixins.json'
+          jar tf output/ultraterraforged-optimizer-0.1.0.jar | grep 'RivermapMixin.class'
+          sha256sum output/*.jar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ultraterraforged-optimizer-0.1.0-neoforge-1.21.1
+          path: output/*.jar
+          if-no-files-found: error
