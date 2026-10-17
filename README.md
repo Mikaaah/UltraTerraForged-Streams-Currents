@@ -9,7 +9,7 @@
 
 Adds Streams Reflowing currents to UltraTerraForged's native rivers, using their paths and local water heights.
 
-📚 **[Browse the documentation wiki](wiki/Home.md)** · [Installation](wiki/Getting-Started.md) · [Troubleshooting](wiki/Troubleshooting.md)
+📚 **[Browse the documentation wiki](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Home)** · [Installation](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Getting-Started) · [Troubleshooting](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Troubleshooting)
 
 [Download 0.1.0-alpha](downloads/ultraterraforged-streams-currents-0.1.0-alpha-neoforge-1.21.1.jar?raw=true) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues)
 
