@@ -9,6 +9,7 @@ import com.pandaismyname1.ultraterraforged.world.worldgen.util.PosUtil;
 /** Observes native generation only during this add-on's explicit sample query. */
 public final class NativeCapture {
     private static final ThreadLocal<Query> ACTIVE = new ThreadLocal<>();
+    private static final ThreadLocal<Cell> PROBES = ThreadLocal.withInitial(Cell::new);
     private static final ThreadLocal<Cell> CELLS = ThreadLocal.withInitial(Cell::new);
     private NativeCapture() {}
 
@@ -49,10 +50,26 @@ public final class NativeCapture {
         double dx = PosUtil.unpackLeftf(b) - PosUtil.unpackLeftf(a);
         double dz = PosUtil.unpackRightf(b) - PosUtil.unpackRightf(a);
         if (!FlowRules.usableVector(dx, dz)) return null;
-        boolean uphill = FlowRules.uphill(carver.waterLevelAt(before) * scale,
-                carver.waterLevelAt(t) * scale, carver.waterLevelAt(after) * scale);
+        double length = Math.hypot(dx, dz);
+        double ux = dx / length, uz = dz / length;
+        // Sample final native water, including confluences, rather than only this carver's profile.
+        double ahead = surfaceAt(context, x + (int)Math.round(ux * 8), z + (int)Math.round(uz * 8),
+                carver.waterLevelAt(after) * scale);
+        double behind = surfaceAt(context, x - (int)Math.round(ux * 8), z - (int)Math.round(uz * 8),
+                carver.waterLevelAt(before) * scale);
+        int direction = FlowRules.downhill(behind, surface, ahead);
+        boolean uphill = direction == 0;
+        if (direction < 0) { dx = -dx; dz = -dz; }
         return new Sample(dx, dz, surface, FlowRules.waterY(cell.height, scale), uphill,
                 carver.main, x, z);
+    }
+
+    private static double surfaceAt(GeneratorContext context, int x, int z, double fallback) {
+        Cell probe = PROBES.get().reset();
+        context.lookup.compute(probe, x, z);
+        float water = probe.waterLevel > 0 ? probe.waterLevel : context.levels.water;
+        return probe.terrain.isRiver() && probe.height < water
+                ? FlowRules.waterY(water, context.levels.worldHeight) : fallback;
     }
 
     private static final class Query {

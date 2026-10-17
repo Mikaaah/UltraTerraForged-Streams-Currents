@@ -36,7 +36,13 @@ public final class IntegrationChecks {
     private IntegrationChecks() {}
     public static void register() {
         if (!System.getProperty("utfstreams.integrationTest", "false").equals("false"))
+        {
+            NeoForge.EVENT_BUS.addListener(IntegrationChecks::prepare);
             NeoForge.EVENT_BUS.addListener(IntegrationChecks::started);
+        }
+    }
+    private static void prepare(net.neoforged.neoforge.event.server.ServerAboutToStartEvent event) {
+        event.getServer().getWorldData().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_SPAWN_CHUNK_RADIUS).set(0, null);
     }
     private static void require(boolean value, String message) {
         if (!value) throw new AssertionError(message);
@@ -82,9 +88,11 @@ public final class IntegrationChecks {
                 byte[] combined = (byte[])append.invoke(null, level, null, cx, cz, own);
                 require(StreamFlowGrid.layerCount(combined) >= 2, "Native layer was not registered through the API");
                 require(StreamFlowGrid.layerAt(combined, i, s.surfaceY()) == 0
-                        && StreamFlowGrid.angleOf(combined, s.x(), s.z(), s.surfaceY()) == 64,
-                        "Native layer overwrote an existing Streams tributary layer");
-                report.put("existingStreamsLayerPriorityPreserved", true);
+                        && StreamFlowGrid.angleOf(combined, s.x(), s.z(), s.surfaceY()) == StreamFlowGrid.encode(s.dx(), s.dz()),
+                        "Native layer did not correct a conflicting current");
+                report.put("nativeRiverDirectionHasPriority", true);
+                require(own[i] == 64, "Composition mutated the original Streams grid");
+                report.put("originalGridPreserved", true);
 
                 RiverEngine engine = StreamsWorldgen.engine(level);
                 require(engine != null, "No Streams engine for full pipeline test");
@@ -132,8 +140,8 @@ public final class IntegrationChecks {
                 int c = (int)step.invoke(null, b, 180f / levels.worldHeight, 40f / levels.worldHeight, levels);
                 require(c > b, "Native leveling rise counterexample did not reproduce");
                 report.put("nativeUphillCounterexample", java.util.List.of(a, b, c));
-                require(FlowRules.uphill(b, b, c), "Uphill guard did not reject the native rise");
-                report.put("uphillGuardPassed", true);
+                require(FlowRules.downhill(b, b, c) == -1, "Downhill rule did not reverse the native rise");
+                report.put("uphillReversalPassed", true);
                 report.put("statusCommandPassed", server.getCommands().getDispatcher().execute("utfstreams status", server.createCommandSourceStack()) == 1);
             }
             for (var key : java.util.List.of(Level.NETHER, Level.END))

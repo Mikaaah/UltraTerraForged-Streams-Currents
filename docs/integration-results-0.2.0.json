@@ -1,0 +1,29 @@
+{
+  "highMainRiver": {
+    "bedY": 71,
+    "dx": -8.7431640625,
+    "dz": -14.28857421875,
+    "x": 1505,
+    "surfaceY": 72,
+    "z": -7360
+  },
+  "generatedWaterAtPredictedHeight": true,
+  "sampleLayerBuildMs": 20.147101,
+  "elevatedLayerProduced": true,
+  "nativeRiverDirectionHasPriority": true,
+  "originalGridPreserved": true,
+  "fullGridAndServerPhysicsPassed": true,
+  "verticalBandIsolationPassed": true,
+  "networkGridBytes": 3072,
+  "provisionalGridPassed": true,
+  "packetCodecAndClientLookupPassed": true,
+  "nativeUphillCounterexample": [
+    117,
+    96,
+    141
+  ],
+  "uphillReversalPassed": true,
+  "statusCommandPassed": true,
+  "netherAndEndInactive": true,
+  "passed": true
+}

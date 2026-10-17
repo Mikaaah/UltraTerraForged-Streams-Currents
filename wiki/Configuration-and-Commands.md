@@ -11,7 +11,7 @@ nativeRiverSpeed = 1.0
 maxCurrentDepth = 64
 ```
 
-Restart after changing settings to rebuild cached grids. Streams' own streams and existing flow layers retain priority where they overlap native rivers.
+Restart after changing settings to rebuild cached grids. Native height-bounded layers take priority at river overlaps. Other elevations retain their original current.
 
 ## When changes take effect
 

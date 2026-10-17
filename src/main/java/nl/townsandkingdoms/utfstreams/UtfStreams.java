@@ -29,7 +29,7 @@ public final class UtfStreams {
     static {
         var b = new ModConfigSpec.Builder();
         ENABLED = b.define("enabled", true);
-        SKIP_UPHILL = b.comment("Leave detected uphill river stretches without native currents; does not repair terrain.")
+        SKIP_UPHILL = b.comment("Calm local basins where both route directions rise. Rising stretches are directed downhill; terrain is unchanged.")
                 .define("skipUphillSegments", true);
         SPEED = b.defineInRange("nativeRiverSpeed", 1.0, 0.1, 2.0);
         MAX_DEPTH = b.defineInRange("maxCurrentDepth", 64, 1, 256);
@@ -43,8 +43,8 @@ public final class UtfStreams {
     }
     private void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            StreamFlowGrid.registerLayerProducer(NativeFlowLayers::layers);
-            LOG.info("UTF Streams experimental native current layer registered; terrain is not modified.");
+            // Native layers are composed by StreamGridMixin, ahead of conflicting generic layers.
+            LOG.info("UTF Streams native current layer registered for Streams 2.15.2; terrain is not modified.");
         });
     }
     public static GeneratorContext context(ServerLevel level) {
@@ -67,7 +67,7 @@ public final class UtfStreams {
                     boolean active = context(c.getSource().getLevel()) != null;
                     c.getSource().sendSuccess(() -> Component.literal("UTF Streams: active=" + active
                             + "; native columns=" + NativeFlowLayers.COLUMNS.sum()
-                            + "; uphill skipped=" + NativeFlowLayers.UPHILL.sum()
+                            + "; basin columns calmed=" + NativeFlowLayers.UPHILL.sum()
                             + "; layer builds=" + NativeFlowLayers.BUILDS.sum()), false);
                     return active ? 1 : 0;
                 })));

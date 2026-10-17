@@ -4,7 +4,7 @@
 
 This add-on registers **height-aware current layers** for UltraTerraForged's native river paths through Streams Reflowing. The current direction follows the generator's river routing and local water heights, rather than assuming all natural water sits at sea level.
 
-Existing Streams Reflowing layers **retain priority at overlaps**. The add-on is active only in supported UltraTerraForged Overworld profiles and leaves the original mods installed and operational.
+Native river bands take priority over conflicting currents at the same elevation. Other elevations and non-native columns keep their original flow. The add-on is active only in supported UltraTerraForged Overworld profiles and leaves the original mods installed and operational.
 
 ## Required world settings
 
@@ -23,7 +23,7 @@ The operator command `/utfstreams status` reports whether the adapter is active.
 
 ## What it does not do
 
-It does not rewrite water blocks or fix uphill terrain steps, disconnected riverbeds, waterfalls, tributaries or terrain carving. It skips detected uphill current sections by default.
+It does not rewrite water blocks or fix uphill terrain steps, disconnected riverbeds, waterfalls, tributaries or terrain carving. It compares final water heights in both directions, reverses rising stretches, and calms local basins by default.
 
 For exact boundaries, read [Compatibility & Limitations](Compatibility-and-Limitations.md).
 

@@ -4,14 +4,14 @@
 
 [![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-5B8731?style=flat-square)](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents)
 [![NeoForge](https://img.shields.io/badge/Loader-NeoForge-D97724?style=flat-square)](https://neoforged.net/)
-[![Experimental Alpha](https://img.shields.io/badge/Release-Experimental%20Alpha-F59E0B?style=flat-square)](CHANGELOG.md)
+[![Beta](https://img.shields.io/badge/Release-Beta-F59E0B?style=flat-square)](CHANGELOG.md)
 [![GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-64748B?style=flat-square)](LICENSE)
 
 Adds Streams Reflowing currents to UltraTerraForged's native rivers, using their paths and local water heights.
 
 📚 **[Browse the documentation wiki](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Home)** · [Installation](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Getting-Started) · [Troubleshooting](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Troubleshooting)
 
-[Download 0.1.0-alpha](downloads/ultraterraforged-streams-currents-0.1.0-alpha-neoforge-1.21.1.jar?raw=true) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues)
+[Download 0.2.0-beta](downloads/ultraterraforged-streams-currents-0.2.0-beta-neoforge-1.21.1.jar?raw=true) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues)
 
 ## Requirements
 
@@ -21,7 +21,7 @@ Adds Streams Reflowing currents to UltraTerraForged's native rivers, using their
 | NeoForge | 21.1.219 or later within 21.1.x |
 | Java | 21 |
 | UltraTerraForged | 1.0.2+1.21.1 |
-| Streams Reflowing | 2.15.0 |
+| Streams Reflowing | 2.15.2 |
 
 Install the add-on alongside both original mods on the client and server.
 
@@ -49,11 +49,11 @@ nativeRiverSpeed = 1.0
 maxCurrentDepth = 64
 ```
 
-Restart after changing settings to rebuild cached grids. Streams' own streams and existing flow layers retain priority where they overlap native rivers.
+Restart after changing settings to rebuild cached grids. The native river layer takes priority inside its predicted height band, correcting conflicting generic currents. Other heights and non-native columns retain their original flow.
 
 ## Limitations
 
-This is a current adapter. It does not change river terrain, repair elevated water steps or fix tributary placement. Detected uphill segments are skipped by default.
+This is a current adapter. It does not change river terrain, repair elevated water steps or fix tributary placement. Water heights ahead and behind determine the downhill direction. Rising route stretches are reversed; local basins are calmed by default. The adapter disables the overlapping generic TerraForged course pass added in Streams 2.15.2 while its native adapter is active.
 
 Current coverage uses terrain-generator estimates. It may differ from saved terrain after preset changes or from water modified by players or other mods. Previously generated Streams fluid blocks are not replaced.
 
@@ -62,7 +62,7 @@ Current coverage uses terrain-generator estimates. It may differ from saved terr
 Requires Java 21. Place the following dependency files in `libs/`:
 
 - `ultraterraforged-1.0.2+1.21.1-neoforge.jar`
-- `StreamsReflowing-1.21.1-neoforge-2.15.0.jar`
+- `StreamsReflowing-1.21.1-neoforge-2.15.2.jar`
 
 Run `./gradlew build` on Linux/macOS or `gradlew.bat build` on Windows. Output is written to `build/libs/`. Dependency JARs are not included in this repository.
 

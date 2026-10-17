@@ -16,6 +16,12 @@ public class FlowRulesTest {
         check(!FlowRules.usableVector(0, 0));
         check(!FlowRules.usableVector(Double.NaN, 1));
         check(!FlowRules.usableVector(Double.POSITIVE_INFINITY, 1));
+        check(FlowRules.downhill(123, 120, 117) == 1);
+        check(FlowRules.downhill(117, 120, 123) == -1);
+        check(FlowRules.downhill(120, 120, 120) == 1);
+        check(FlowRules.downhill(123, 120, 123) == 0);
+        check(FlowRules.downhill(Double.NaN, 120, 117) == 0);
+        check(FlowRules.downhill(117, 120, 120) == -1);
         System.out.println(checks + " flow rules passed");
     }
 }

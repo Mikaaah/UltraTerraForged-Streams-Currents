@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0-alpha
+## 0.2.0-beta
 
 - Added native UltraTerraForged river currents using local water heights and river paths.
 - Integrated with Streams Reflowing's flow grids while preserving existing layer priority.

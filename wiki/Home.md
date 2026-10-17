@@ -2,7 +2,7 @@
 
 Experimental height-aware river currents for UltraTerraForged's native river routes using Streams Reflowing's flow grid.
 
-**Minecraft 1.21.1 · NeoForge 21.1.219+ (21.1.x) · Java 21 · Documented version 0.1.0-alpha**
+**Minecraft 1.21.1 · NeoForge 21.1.219+ (21.1.x) · Java 21 · Documented version 0.2.0-beta**
 
 This is a river current adapter, not terrain generation repair.
 

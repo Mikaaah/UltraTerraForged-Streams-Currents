@@ -10,7 +10,7 @@
 | NeoForge | 21.1.219 or later within 21.1.x |
 | Java | 21 |
 | UltraTerraForged | 1.0.2+1.21.1 |
-| Streams Reflowing | 2.15.0 |
+| Streams Reflowing | 2.15.2 |
 
 Install the add-on alongside both original mods on the client and server.
 
