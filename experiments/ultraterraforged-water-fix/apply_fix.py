@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;"""),
     }
 
     /**
-     * Replaces the solid rock""".replace("    ", "\t"), """        if (state != fill) {
+     * Replaces the solid rock""".replace("        ", "\t\t").replace("    ", "\t"), """        if (state != fill) {
             if (fill == AIR && !state.isAir() && y >= this.bottom && y < this.chunk.getMaxBuildHeight()) {
                 this.carvedAir.set(this.index(x, y, z));
             }
@@ -94,7 +94,7 @@ import org.jetbrains.annotations.Nullable;"""),
     }
 
     /**
-     * Replaces the solid rock""".replace(/^    /gm, "\t")),
+     * Replaces the solid rock""".replace("        ", "\t\t").replace("    ", "\t")),
 ])
 
 change("world/worldgen/cave/CaveFeatures.java", [
