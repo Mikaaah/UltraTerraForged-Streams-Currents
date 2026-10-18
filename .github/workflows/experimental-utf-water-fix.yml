@@ -1,15 +1,15 @@
-name: Experimental UTF 1.21.1 Water Fix
+name: Experimental UTF Water Fix V2
 on:
   push:
     branches:
-      - experiment/utf-1.21.1-water-fixes
+      - experiment/utf-waterfix-v2
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: experimental-utf-water-fix
+  group: experimental-utf-water-fix-v2
   cancel-in-progress: true
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
       - name: Checkout upstream UltraTerraForged 1.21.1
         run: git clone --single-branch --depth 1 --branch 1.21.1 https://github.com/Pandaismyname1/ultraterraforged.git upstream
       - name: Apply experimental patch
-        run: python3 experiments/ultraterraforged-water-fix/apply_fix.py upstream
+        run: |\n          python3 experiments/ultraterraforged-water-fix/apply_fix.py upstream\n          python3 experiments/ultraterraforged-water-fix/apply_fix_v2.py upstream
       - name: Java 21
         uses: actions/setup-java@v4
         with:
@@ -32,7 +32,7 @@ jobs:
         working-directory: upstream
         run: |
           chmod +x gradlew
-          ./gradlew :common:test --tests '*RiverWaterTransitionTest' -Putf.perfMods=false --no-daemon
+          ./gradlew :common:test --tests '*RiverWaterTransitionTest' --tests '*WaterLevelTransitionTest' -Putf.perfMods=false --no-daemon
       - name: Build NeoForge 1.21.1 with release metadata
         working-directory: upstream
         env:
@@ -42,7 +42,7 @@ jobs:
         run: |
           mkdir -p release
           find upstream/neoforge/build/libs -name '*-neoforge.jar' -print
-          cp upstream/neoforge/build/libs/*-neoforge.jar release/ultraterraforged-1.0.2-mc1.21.1-waterfix-neoforge.jar
+          cp upstream/neoforge/build/libs/*-neoforge.jar release/ultraterraforged-1.0.2+1.21.1-waterfix-v2-neoforge.jar
           python3 - <<'PY'
           import zipfile
           from pathlib import Path
@@ -58,6 +58,6 @@ jobs:
       - name: Upload NeoForge artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ultraterraforged-1.21.1-waterfix-release-metadata
+          name: ultraterraforged-1.21.1-waterfix-v2-experimental
           path: release/*.jar
           if-no-files-found: error
