@@ -34,7 +34,7 @@ jobs:
         working-directory: upstream
         run: |
           chmod +x gradlew
-          ./gradlew :common:test --tests '*RiverWaterTransitionTest' --tests '*WaterLevelTransitionTest' -Putf.perfMods=false --no-daemon
+          ./gradlew :common:test --tests '*RiverWaterTransitionTest' --tests '*WaterLevelTransitionTest' --tests '*RaisedWaterTest' -Putf.perfMods=false --no-daemon
       - name: Build NeoForge 1.21.1 with release metadata
         working-directory: upstream
         env:
