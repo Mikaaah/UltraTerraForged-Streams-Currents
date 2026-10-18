@@ -21,7 +21,9 @@ jobs:
       - name: Checkout upstream UltraTerraForged 1.21.1
         run: git clone --single-branch --depth 1 --branch 1.21.1 https://github.com/Pandaismyname1/ultraterraforged.git upstream
       - name: Apply experimental patch
-        run: |\n          python3 experiments/ultraterraforged-water-fix/apply_fix.py upstream\n          python3 experiments/ultraterraforged-water-fix/apply_fix_v2.py upstream
+        run: |
+          python3 experiments/ultraterraforged-water-fix/apply_fix.py upstream
+          python3 experiments/ultraterraforged-water-fix/apply_fix_v2.py upstream
       - name: Java 21
         uses: actions/setup-java@v4
         with:
