@@ -33,18 +33,31 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew :common:test --tests '*RiverWaterTransitionTest' -Putf.perfMods=false --no-daemon
-      - name: Build NeoForge 1.21.1
+      - name: Build NeoForge 1.21.1 with release metadata
         working-directory: upstream
+        env:
+          RELEASE: 'true'
         run: ./gradlew :neoforge:build -Putf.perfMods=false --no-daemon
       - name: Stage playable JAR
         run: |
           mkdir -p release
           find upstream/neoforge/build/libs -name '*-neoforge.jar' -print
           cp upstream/neoforge/build/libs/*-neoforge.jar release/ultraterraforged-1.0.2-mc1.21.1-waterfix-neoforge.jar
+          python3 - <<'PY'
+          import zipfile
+          from pathlib import Path
+          jar = next(Path('release').glob('*.jar'))
+          with zipfile.ZipFile(jar) as archive:
+              assert archive.testzip() is None
+              metadata = archive.read('META-INF/neoforge.mods.toml').decode('utf-8')
+              assert 'version="1.0.2+1.21.1"' in metadata, metadata
+              assert 'SNAPSHOT' not in metadata, metadata
+              print('Verified NeoForge mod version: 1.0.2+1.21.1')
+          PY
           sha256sum release/*.jar
       - name: Upload NeoForge artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ultraterraforged-1.21.1-experimental-waterfix
+          name: ultraterraforged-1.21.1-waterfix-release-metadata
           path: release/*.jar
           if-no-files-found: error
