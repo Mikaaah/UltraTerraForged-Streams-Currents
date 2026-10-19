@@ -2,7 +2,7 @@
 
 ## The add-on does not activate
 
-- Verify Minecraft **1.21.1**, compatible NeoForge **21.1.x**, **Java 21** and the exact dependency versions in [Getting Started](Getting-Started.md).
+- Verify Minecraft **1.21.1**, compatible NeoForge **21.1.x**, **Java 21** and the exact dependency versions in [Getting Started](Getting-Started).
 - Install the compatibility add-on alongside both required mods. Dedicated servers and clients need matching JARs.
 - Make sure the world type is an **UltraTerraForged Overworld**.
 - Run `/utfstreams status` as an operator. The preset must enable winding rivers or raised water.
@@ -25,4 +25,4 @@ Open a [bug report](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents
 - Diagnostic command output and relevant configuration values.
 - Logs with private server details, user tokens and personal information removed.
 
-[← Wiki Home](Home.md)
+[← Wiki Home](Home)

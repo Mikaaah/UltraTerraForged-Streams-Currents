@@ -1,6 +1,4 @@
-# Configuration & Commands
-
-## Configuration
+# Configuration and commands
 
 Settings are in `config/utfstreams-common.toml`:
 
@@ -11,17 +9,16 @@ nativeRiverSpeed = 1.0
 maxCurrentDepth = 64
 ```
 
-Restart after changing settings to rebuild cached grids. Native height-bounded layers take priority at river overlaps. Other elevations retain their original current.
+Restart after changing settings to rebuild cached grids. The native river layer takes priority inside its predicted height band, correcting conflicting generic currents. Other heights and non-native columns retain their original flow.
 
-## When changes take effect
+## Actual-water correction
 
-Restart the game or server after adjusting world-generation or flow settings. For current grids, allow Streams Reflowing to prepare newly visited areas before judging observed behavior.
+`correctActualWaterFlow=true` also validates final ordinary/baked fluid and boat currents against loaded water.
+`actualWaterScanRadius=16` bounds the connected-water search (4–32 blocks); each query visits at most 384 nodes.
+No chunks are forced to load and no water or terrain blocks are rewritten. Nearby lower outlets determine the corrected direction.
+Flat areas or outlets beyond the search bounds keep their original direction. Explicit Flow Control edits retain priority.
 
-## Suggested checks
+Stand in an affected stream and run `/utfstreams inspect` for the block position, fluid, cached grid angle and final flow vector.
+`/utfstreams status` includes actual-water search/correction counters.
 
-1. Confirm at least one of **winding rivers** or **raised water** is enabled in the UltraTerraForged preset.
-2. Keep `vanillaWaterFlow=true` and `flowVanillaRivers=true` in Streams Reflowing.
-3. Run `/utfstreams status` as an operator.
-4. Verify current behavior after grid preparation near a native river.
-
-[← Wiki Home](Home.md)
+[← Wiki home](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Home)

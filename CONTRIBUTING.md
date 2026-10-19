@@ -23,3 +23,6 @@ Distinguish current-direction issues from upstream terrain issues such as uphill
 - Explain tests with actual worlds, current grids, networking and clients where relevant; do not report simulator checks as full in-game validation.
 
 Please open an issue to discuss significant changes to river detection or current behavior.
+
+
+Build instructions and technical checks are in [the contributor reference](docs/DEVELOPMENT.md).

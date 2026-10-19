@@ -1,12 +1,9 @@
-# Features & Behavior
+# Features and behavior
 
-## Native river currents
-
-This add-on registers **height-aware current layers** for UltraTerraForged's native river paths through Streams Reflowing. The current direction follows the generator's river routing and local water heights, rather than assuming all natural water sits at sea level.
-
-Native river bands take priority over conflicting currents at the same elevation. Other elevations and non-native columns keep their original flow. The add-on is active only in supported UltraTerraForged Overworld profiles and leaves the original mods installed and operational.
-
-## Required world settings
+- Adds height-aware Streams currents to UltraTerraForged’s native river paths.
+- Corrects final ordinary-water, baked-fluid and boat currents against nearby loaded water.
+- Reverses uphill route segments and calms local basins by default.
+- Preserves explicit Flow Control edits and never rewrites water or terrain.
 
 ## Setup
 
@@ -21,10 +18,14 @@ flowVanillaRivers=true
 
 The operator command `/utfstreams status` reports whether the adapter is active. Currents become available as Streams prepares its flow grids.
 
-## What it does not do
+## Actual-water correction
 
-It does not rewrite water blocks or fix uphill terrain steps, disconnected riverbeds, waterfalls, tributaries or terrain carving. It compares final water heights in both directions, reverses rising stretches, and calms local basins by default.
+`correctActualWaterFlow=true` also validates final ordinary/baked fluid and boat currents against loaded water.
+`actualWaterScanRadius=16` bounds the connected-water search (4–32 blocks); each query visits at most 384 nodes.
+No chunks are forced to load and no water or terrain blocks are rewritten. Nearby lower outlets determine the corrected direction.
+Flat areas or outlets beyond the search bounds keep their original direction. Explicit Flow Control edits retain priority.
 
-For exact boundaries, read [Compatibility & Limitations](Compatibility-and-Limitations.md).
+Stand in an affected stream and run `/utfstreams inspect` for the block position, fluid, cached grid angle and final flow vector.
+`/utfstreams status` includes actual-water search/correction counters.
 
-[← Wiki Home](Home.md)
+[← Wiki home](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Home)

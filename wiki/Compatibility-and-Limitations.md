@@ -12,10 +12,10 @@ The current adapter requires an active UltraTerraForged Overworld using raised w
 
 ## Tested dependency versions
 
-See [Getting Started](Getting-Started.md) for the specific versions documented by this repository. Newer dependency versions are not automatically guaranteed to work.
+See [Getting Started](Getting-Started) for the specific versions documented by this repository. Newer dependency versions are not automatically guaranteed to work.
 
 ## Bugs outside this add-on's scope
 
 Native UltraTerraForged terrain can contain uneven river heights or disconnected water. This adapter adds *currents*, not complete watershed or carving compatibility. Saved terrain, player edits, and other world-generation mods can differ from generated water estimates.
 
-[← Wiki Home](Home.md)
+[← Wiki Home](Home)

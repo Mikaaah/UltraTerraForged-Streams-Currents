@@ -9,4 +9,4 @@
 
 ---
 
-[← Wiki Home](Home.md) · [Canonical changelog](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/blob/main/CHANGELOG.md)
+[← Wiki Home](Home) · [Canonical changelog](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/blob/main/CHANGELOG.md)

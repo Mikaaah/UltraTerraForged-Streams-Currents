@@ -1,17 +1,23 @@
-# UltraTerraForged Streams Currents
+<p align="center"><img src="docs/assets/banner.png" alt="UltraTerraForged × Streams Reflowing" width="100%"></p>
 
-[Project status](https://github.com/Mikaaah/Mikaaah/blob/master/STATUS.md) · [Report a bug](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues/new?template=bug_report.yml) · [Suggest a feature](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues/new?template=feature_request.yml) · [Questions](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues/new?template=question.yml) · [CurseForge download](https://www.curseforge.com/minecraft/mc-mods/ultraterraforged-streams-reflowing-compat)
+<p align="center"><a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents"><img src="docs/assets/logo.png" alt="UltraTerraForged × Streams Reflowing logo" width="160"></a></p>
 
-[![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-5B8731?style=flat-square)](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents)
-[![NeoForge](https://img.shields.io/badge/Loader-NeoForge-D97724?style=flat-square)](https://neoforged.net/)
-[![Beta](https://img.shields.io/badge/Release-Beta-F59E0B?style=flat-square)](CHANGELOG.md)
-[![GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-64748B?style=flat-square)](LICENSE)
+<h1 align="center">UltraTerraForged × Streams Reflowing</h1>
 
-Adds Streams Reflowing currents to UltraTerraForged's native rivers, using their paths and local water heights.
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/ultraterraforged-streams-reflowing-compat">CurseForge</a> · <a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/blob/main/CHANGELOG.md">Changelog</a></p>
 
-📚 **[Browse the documentation wiki](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Home)** · [Installation](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Getting-Started) · [Troubleshooting](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Troubleshooting)
+<p align="center"><img alt="Minecraft 1.21.1" src="https://img.shields.io/badge/Minecraft-1.21.1-568736?style=flat-square"> <img alt="NeoForge" src="https://img.shields.io/badge/Loader-NeoForge-d77828?style=flat-square"></p>
 
-[Download 0.2.1-beta](downloads/ultraterraforged-streams-currents-0.2.1-beta-neoforge-1.21.1.jar?raw=true) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues)
+Bring Streams Reflowing currents to UltraTerraForged’s native rivers, with height-aware routing and correction against nearby loaded water.
+
+[Download 0.2.1-beta](downloads/ultraterraforged-streams-currents-0.2.1-beta-neoforge-1.21.1.jar?raw=true)
+
+## What it adds
+
+- Adds height-aware Streams currents to UltraTerraForged’s native river paths.
+- Corrects final ordinary-water, baked-fluid and boat currents against nearby loaded water.
+- Reverses uphill route segments and calms local basins by default.
+- Preserves explicit Flow Control edits and never rewrites water or terrain.
 
 ## Requirements
 
@@ -38,52 +44,18 @@ flowVanillaRivers=true
 
 The operator command `/utfstreams status` reports whether the adapter is active. Currents become available as Streams prepares its flow grids.
 
-## Configuration
-
-Settings are in `config/utfstreams-common.toml`:
-
-```toml
-enabled = true
-skipUphillSegments = true
-nativeRiverSpeed = 1.0
-maxCurrentDepth = 64
-```
-
-Restart after changing settings to rebuild cached grids. The native river layer takes priority inside its predicted height band, correcting conflicting generic currents. Other heights and non-native columns retain their original flow.
-
-## Limitations
+## Know before you install
 
 This is a current adapter. It does not change river terrain, repair elevated water steps or fix tributary placement. Water heights ahead and behind determine the downhill direction. Rising route stretches are reversed; local basins are calmed by default. The adapter disables the overlapping generic TerraForged course pass added in Streams 2.15.2 while its native adapter is active.
 
 Current coverage uses terrain-generator estimates. It may differ from saved terrain after preset changes or from water modified by players or other mods. Previously generated Streams fluid blocks are not replaced.
 
-## Building
+## Guides
 
-Requires Java 21. Place the following dependency files in `libs/`:
-
-- `ultraterraforged-1.0.2+1.21.1-neoforge.jar`
-- `StreamsReflowing-1.21.1-neoforge-2.15.2.jar`
-
-Run `./gradlew build` on Linux/macOS or `gradlew.bat build` on Windows. Output is written to `build/libs/`. Dependency JARs are not included in this repository.
-
-
-## Contributing
-
-Found a bug or want to improve the project? Read the [contribution guide](CONTRIBUTING.md) for reporting details, testing expectations and pull requests.
-
+[Features](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Features-and-Behavior) · [Configuration](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Configuration-and-Commands) · [Compatibility](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Compatibility-and-Limitations) · [Troubleshooting](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki/Troubleshooting)
 
 ## Credits and license
 
 By Towns & Kingdoms, for UltraTerraForged and Streams Reflowing.
 
 [GPL-3.0-only](LICENSE).
-
-## Actual-water correction (0.2.1)
-
-`correctActualWaterFlow=true` also validates final ordinary/baked fluid and boat currents against loaded water.
-`actualWaterScanRadius=16` bounds the connected-water search (4–32 blocks); each query visits at most 384 nodes.
-No chunks are forced to load and no water or terrain blocks are rewritten. Nearby lower outlets determine the corrected direction.
-Flat areas or outlets beyond the search bounds keep their original direction. Explicit Flow Control edits retain priority.
-
-Stand in an affected stream and run `/utfstreams inspect` for the block position, fluid, cached grid angle and final flow vector.
-`/utfstreams status` includes actual-water search/correction counters.

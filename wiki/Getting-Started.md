@@ -33,8 +33,8 @@ The operator command `/utfstreams status` reports whether the adapter is active.
 
 ## Next steps
 
-- [Features & Behavior](Features-and-Behavior.md) — what the adapter does.
-- [Configuration & Commands](Configuration-and-Commands.md) — settings and diagnostics.
-- [Compatibility & Limitations](Compatibility-and-Limitations.md) — what this add-on does not fix.
+- [Features & Behavior](Features-and-Behavior) — what the adapter does.
+- [Configuration & Commands](Configuration-and-Commands) — settings and diagnostics.
+- [Compatibility & Limitations](Compatibility-and-Limitations) — what this add-on does not fix.
 
-[← Wiki Home](Home.md)
+[← Wiki Home](Home)
