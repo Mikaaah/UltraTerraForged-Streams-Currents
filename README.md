@@ -1,7 +1,5 @@
 <p align="center"><img src="docs/assets/banner.png" alt="UltraTerraForged × Streams Reflowing" width="100%"></p>
 
-<p align="center"><a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents"><img src="docs/assets/logo.png" alt="UltraTerraForged × Streams Reflowing logo" width="160"></a></p>
-
 <h1 align="center">UltraTerraForged × Streams Reflowing</h1>
 
 <p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/ultraterraforged-streams-reflowing-compat">CurseForge</a> · <a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/UltraTerraForged-Streams-Currents/blob/main/CHANGELOG.md">Changelog</a></p>
