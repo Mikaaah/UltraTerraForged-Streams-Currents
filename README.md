@@ -17,6 +17,10 @@ Bring Streams Reflowing currents to UltraTerraForged’s native rivers, with hei
 - Reverses uphill route segments and calms local basins by default.
 - Preserves explicit Flow Control edits and never rewrites water or terrain.
 
+## Using Wildshape / TNKTerraForged?
+
+The TNK terrain fork’s NeoForge 1.21.1 edition integrates this adapter. Use the integrated version or this standalone `utfstreams` JAR; remove the standalone JAR when using the integrated equivalent to avoid duplicate Mixins. See [the fork’s compatibility instructions](https://github.com/Mikaaah/ultraterraforged-personal#readme).
+
 ## Requirements
 
 | Component | Version |
